@@ -7,6 +7,7 @@ int _w;
 
 abstract class DomReadyMixin {
   Completer _whenDomReadyCompleter = new Completer();
+  bool _domReadyScheduled = false;
 
   Future get whenDomReady => _whenDomReadyCompleter.future;
 
@@ -23,6 +24,10 @@ abstract class DomReadyMixin {
     if (_debug) {
       print('$runtimeType attached');
     }
-    new Future.delayed(new Duration(), domReady);
+    // domReady only once, even when attached again
+    if (!_domReadyScheduled) {
+      _domReadyScheduled = true;
+      new Future.delayed(new Duration(), domReady);
+    }
   }
 }

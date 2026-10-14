@@ -22,7 +22,7 @@ class AppPageContainer {
   // single entry point
   selectPageId(String pageId, {bool force}) {
     //devPrint('_selectPage: $pageId/$_lastSelectedPageId');
-    if (currentPageId != pageId || force) {
+    if (currentPageId != pageId || force == true) {
       String previousPageId = currentPageId;
       _currentPageId = pageId;
 
@@ -37,7 +37,7 @@ class AppPageContainer {
           window.console.error("cannot find page $pageId");
         } else {
           newSelectedPage.onActivate();
-          if (previousPageId != null) {
+          if (previousPageId != null && previousPageId != pageId) {
             AppPage previousSelectedPage = _resolvePage(previousPageId);
             if (previousSelectedPage != null) {
               // unactivate old

@@ -49,11 +49,8 @@ Element findFirstAncestorWithId(Element element, String id,
   } else {
     parent = element.parent;
   }
-  while (parent.id != id) {
+  while (parent != null && parent.id != id) {
     parent = parent.parent;
-    if (parent == null) {
-      return null;
-    }
   }
   return parent;
 }
@@ -68,11 +65,8 @@ Element findFirstAncestorWithClass(Element element, String klass,
   } else {
     parent = element.parent;
   }
-  while (!parent.classes.contains(klass)) {
+  while (parent != null && !parent.classes.contains(klass)) {
     parent = parent.parent;
-    if (parent == null) {
-      return null;
-    }
   }
   return parent;
 }

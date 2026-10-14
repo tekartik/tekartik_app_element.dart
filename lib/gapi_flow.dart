@@ -97,6 +97,7 @@ class GapiFlowElement extends PolymerElement with DomReadyMixin {
       {String clientId, List<String> scopes, String initialUserId}) {
     _handleAuth(null);
     _flow = null;
+    _clientId = clientId;
     _setDisabled(contentSignInButton, true);
 
     if (_onSignInController != null) {
@@ -116,6 +117,10 @@ class GapiFlowElement extends PolymerElement with DomReadyMixin {
               userId: initialUserId, immediate: true);
           await _handleAuth(authClient);
         }
+      }).catchError((e, st) {
+        print(e);
+        print(st);
+        return _handleAuth(null);
       });
     });
 
